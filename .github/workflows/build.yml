@@ -29,7 +29,8 @@ jobs:
         id: correr-pruebas
         run: |
           python -m coverage run -m unittest discover -s tests
-          python -m coverage xml -o coverage-reports/coverage.xml
+          mkdir -p coverage-reports
+          python -m coverage xml -i
           python -m coverage report -m
 
       - name: SonarCloud Scan

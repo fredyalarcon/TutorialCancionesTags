@@ -1,0 +1,17 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+source = src  # Ruta principal de tu código fuente
+
+[paths]
+source =
+    src/
+    */site-packages/
+
+[report]
+omit =
+    tests/*
+    src/vista/*
+
+[xml]
+output = coverage-reports/coverage.xml
