@@ -3,3 +3,7 @@ src/modelo/__pycache__/*
 src/logica/__pycache__/*
 src/vista/__pycache__/*
 venv/*
+__pycache__/*
+test/__pycache__/*
+#BD
+aplicacion.sqlite
