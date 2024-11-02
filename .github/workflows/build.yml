@@ -30,6 +30,8 @@ jobs:
         run: |
           python -m coverage run -m unittest discover -s tests
           python -m coverage xml -i
+          python -m coverage report -m
+          echo "Coverage: $(python -m coverage report -m)"
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
