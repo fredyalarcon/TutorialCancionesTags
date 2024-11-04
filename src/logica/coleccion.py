@@ -38,11 +38,15 @@ class Coleccion():
     def eliminar_album(self, album_id):
         try:
             album = session.query(Album).filter(Album.id == album_id).first()
-            session.delete(album)
-            session.commit()
-            return True
-        except:
-            return False
+            if album:
+                session.delete(album)
+                session.commit()
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(f"Ocurrió un error inesperado: {e}")
+            raise
 
     def dar_albumes(self):
         albumes = [elem.__dict__ for elem in session.query(Album).all()]
@@ -131,8 +135,9 @@ class Coleccion():
                 return True
             else:
                 return False
-        except:
-            return False
+        except Exception as e:
+            print(f"Ocurrió un error inesperado: {e}")
+            raise
 
     def dar_canciones(self):
         canciones = [elem.__dict__ for elem in session.query(Cancion).all()]
@@ -203,8 +208,9 @@ class Coleccion():
             session.delete(interprete)
             session.commit()
             return True
-        except:
-            return False
+        except Exception as e:
+            print(f"Ocurrió un error inesperado: {e}")
+            raise
 
     def dar_interpretes(self):
         interpretes = [elem.__dict__ for elem in session.query(Interprete).all()]
