@@ -32,8 +32,8 @@ class InterpreteTestCase(unittest.TestCase):
         self.assertTrue(consulta2)
 
     def testEliminarInterprete(self):
-        self.coleccion.eliminar_interprete(3)
-        consulta = self.session.query(Interprete).filter(Interprete.id == 3).first()
+        self.coleccion.eliminar_interprete(1)
+        consulta = self.session.query(Interprete).filter(Interprete.id == 1).first()
         self.assertIsNone(consulta)
 
     def test_buscar_sin_parametros(self):

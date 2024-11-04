@@ -1,8 +1,7 @@
 from src.modelo.album import Album, Medio
 from src.modelo.cancion import Cancion
-from src.modelo.declarative_base import engine, Base, session
+from src.modelo.declarative_base import engine, Base, Session, session
 from src.modelo.interprete import Interprete
-
 
 class Coleccion():
 
@@ -203,14 +202,12 @@ class Coleccion():
             return False
 
     def eliminar_interprete(self, interprete_id):
-        try:
-            interprete = session.query(Interprete).filter(Interprete.id == interprete_id).first()
-            session.delete(interprete)
-            session.commit()
-            return True
-        except Exception as e:
-            print(f"Ocurrió un error inesperado: {e}")
-            raise
+        session = Session()
+        interprete = session.query(Interprete).filter(Interprete.id == interprete_id).first()
+        if interprete is None:
+            raise Exception("Intérprete no encontrado.")
+        session.delete(interprete)
+        session.commit()
 
     def dar_interpretes(self):
         interpretes = [elem.__dict__ for elem in session.query(Interprete).all()]
