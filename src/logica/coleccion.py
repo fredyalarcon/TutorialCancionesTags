@@ -18,6 +18,16 @@ class Coleccion():
             return True
         else:
             return False
+        
+    def agregar_album_copiasonar(self, titulo, anio, descripcion, medio):
+        busqueda = session.query(Album).filter(Album.titulo == titulo).all()
+        if len(busqueda) == 0:
+            album = Album(titulo=titulo, ano=anio, descripcion=descripcion, medio=medio)
+            session.add(album)
+            session.commit()
+            return True
+        else:
+            return False
 
     def dar_medios(self):
         return [medio.name for medio in Medio]
