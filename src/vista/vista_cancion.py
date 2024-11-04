@@ -185,8 +185,8 @@ class Ventana_Cancion(QWidget):
         '''
         Función para guardar los cambios en una canción
         '''
+        if not self.interpretes:
             self.mostrar_error(self.ERROR_GUARDAR_CANCION, "La canción debe tener al menos un intérprete")
-            self.mostrar_error("Error al guardar canción", "La canción debe tener al menos un intérprete")
         else:
             if self.cancion_actual is None:
                 self.crear_nueva_cancion()
@@ -220,10 +220,11 @@ class Ventana_Cancion(QWidget):
         self.cancion_actual["minutos"] = self.texto_minutos.text()
         self.cancion_actual["segundos"] = self.texto_segundos.text()
         self.cancion_actual["compositor"] = self.texto_compositor.text()
+        
+        if self.campos_vacios():
             self.mostrar_error(self.ERROR_GUARDAR_CANCION, "Ningún campo debe estar vacio")
-            self.mostrar_error("Error al guardar canción", "Ningún campo debe estar vacio")
+        elif self.duracion_invalida():
             self.mostrar_error(self.ERROR_GUARDAR_CANCION, "La duración de la canción debe ser mínimo de 10 sg")
-            self.mostrar_error("Error al guardar canción", "La duración de la canción debe ser mínimo de 10 sg")
         else:
             self.interfaz.guardar_cancion(self.cancion_actual, self.interpretes)
 

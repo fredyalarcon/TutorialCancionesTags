@@ -147,6 +147,8 @@ class App(QApplication):
             mensaje_error.exec_()
         self.ventana_lista_album.mostrar_albums(self.logica.dar_albumes())
 
+    ERROR_GUARDAR_CANCION = "Error al guardar canción"
+
     def crear_cancion(self, nueva_cancion, interpretes, id_album=-1):
         '''
         Método para crear una nueva canción. 
@@ -155,7 +157,7 @@ class App(QApplication):
         if nueva_cancion["titulo"] == "" or nueva_cancion["minutos"] == "" or nueva_cancion["segundos"] == "":
             mensaje_error = QMessageBox()
             mensaje_error.setIcon(QMessageBox.Critical)
-            mensaje_error.setWindowTitle("Error al guardar canción")
+            mensaje_error.setWindowTitle(self.ERROR_GUARDAR_CANCION)
             mensaje_error.setText("Ningún campo debe estar vacio")
             mensaje_error.setStandardButtons(QMessageBox.Ok)
             mensaje_error.exec_()
@@ -163,7 +165,7 @@ class App(QApplication):
             if int(nueva_cancion["minutos"]) == 0 and int(nueva_cancion["segundos"]) < 10:
                 mensaje_error = QMessageBox()
                 mensaje_error.setIcon(QMessageBox.Critical)
-                mensaje_error.setWindowTitle("Error al guardar canción")
+                mensaje_error.setWindowTitle(self.ERROR_GUARDAR_CANCION)
                 mensaje_error.setText("La duración de la canción debe ser mínimo de 10 sg")
                 mensaje_error.setStandardButtons(QMessageBox.Ok)
                 mensaje_error.exec_()
@@ -177,7 +179,7 @@ class App(QApplication):
                     if operacion is False:
                         mensaje_error = QMessageBox()
                         mensaje_error.setIcon(QMessageBox.Critical)
-                        mensaje_error.setWindowTitle("Error al guardar canción")
+                        mensaje_error.setWindowTitle(self.ERROR_GUARDAR_CANCION)
                         mensaje_error.setText("Ya existe una canción con el título " + nueva_cancion["titulo"] + " en el álbum")
                         mensaje_error.setStandardButtons(QMessageBox.Ok)
                         mensaje_error.exec_()
