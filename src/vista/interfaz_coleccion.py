@@ -182,6 +182,8 @@ class App(QApplication):
                         mensaje_error.setStandardButtons(QMessageBox.Ok)
                         mensaje_error.exec_()
 
+    ERROR_BUSCAR_ALBUM = "Error al buscar álbum"
+
     def mostrar_resultados_albumes(self, nombre_album):
         '''
         Método para mostrar los resultados de búsqueda de albumes por nombre
@@ -190,7 +192,7 @@ class App(QApplication):
         if len(albumes) == 0:
             mensaje_error = QMessageBox()
             mensaje_error.setIcon(QMessageBox.Critical)
-            mensaje_error.setWindowTitle("Error al buscar álbum")
+            mensaje_error.setWindowTitle(self.ERROR_BUSCAR_ALBUM)
             mensaje_error.setText("No hay álbumes con el título " + nombre_album)
             mensaje_error.setStandardButtons(QMessageBox.Ok)
             mensaje_error.exec_()
@@ -204,7 +206,7 @@ class App(QApplication):
         if len(canciones) == 0:
             mensaje_error = QMessageBox()
             mensaje_error.setIcon(QMessageBox.Critical)
-            mensaje_error.setWindowTitle("Error al buscar álbum")
+            mensaje_error.setWindowTitle(self.ERROR_BUSCAR_ALBUM)
             mensaje_error.setText("No hay canciones con el título " + nombre_cancion)
             mensaje_error.setStandardButtons(QMessageBox.Ok)
             mensaje_error.exec_()
@@ -218,7 +220,7 @@ class App(QApplication):
         if len(interpretes) == 0:
             mensaje_error = QMessageBox()
             mensaje_error.setIcon(QMessageBox.Critical)
-            mensaje_error.setWindowTitle("Error al buscar álbum")
+            mensaje_error.setWindowTitle(self.ERROR_BUSCAR_ALBUM)
             mensaje_error.setText("No hay canciones con el interprete " + nombre_interprete)
             mensaje_error.setStandardButtons(QMessageBox.Ok)
             mensaje_error.exec_()
