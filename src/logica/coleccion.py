@@ -38,7 +38,7 @@ class Coleccion():
             session = Session()
             album = session.query(Album).filter(Album.id == album_id).first()
             if album is None:
-                raise Exception("Álbum no encontrado.")
+                raise ValueError("Álbum no encontrado.")
             session.delete(album)
             session.commit()
 
@@ -124,7 +124,7 @@ class Coleccion():
         session = Session()
         cancion = session.query(Cancion).filter(Cancion.id == cancion_id).first()
         if cancion is None:
-            raise Exception("Canción no encontrada.")
+            raise ValueError("Canción no encontrada.")
         session.delete(cancion)
         session.commit()
 
@@ -195,7 +195,7 @@ class Coleccion():
         session = Session()
         interprete = session.query(Interprete).filter(Interprete.id == interprete_id).first()
         if interprete is None:
-            raise Exception("Intérprete no encontrado.")
+            raise ValueError("Intérprete no encontrado.")
         session.delete(interprete)
         session.commit()
 
