@@ -35,17 +35,12 @@ class Coleccion():
             return False
 
     def eliminar_album(self, album_id):
-        try:
+            session = Session()
             album = session.query(Album).filter(Album.id == album_id).first()
-            if album:
-                session.delete(album)
-                session.commit()
-                return True
-            else:
-                return False
-        except Exception as e:
-            print(f"Ocurrió un error inesperado: {e}")
-            raise
+            if album is None:
+                raise Exception("Álbum no encontrado.")
+            session.delete(album)
+            session.commit()
 
     def dar_albumes(self):
         albumes = [elem.__dict__ for elem in session.query(Album).all()]
@@ -126,17 +121,12 @@ class Coleccion():
             return False
 
     def eliminar_cancion(self, cancion_id):
-        try:
-            cancion = session.query(Cancion).filter(Cancion.id == cancion_id).first()
-            if cancion is not None:
-                session.delete(cancion)
-                session.commit()
-                return True
-            else:
-                return False
-        except Exception as e:
-            print(f"Ocurrió un error inesperado: {e}")
-            raise
+        session = Session()
+        cancion = session.query(Cancion).filter(Cancion.id == cancion_id).first()
+        if cancion is None:
+            raise Exception("Canción no encontrada.")
+        session.delete(cancion)
+        session.commit()
 
     def dar_canciones(self):
         canciones = [elem.__dict__ for elem in session.query(Cancion).all()]
