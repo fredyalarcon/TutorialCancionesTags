@@ -1,8 +1,7 @@
 from src.modelo.album import Album, Medio
 from src.modelo.cancion import Cancion
-from src.modelo.declarative_base import engine, Base, session
+from src.modelo.declarative_base import engine, Base, Session, session
 from src.modelo.interprete import Interprete
-
 
 class Coleccion():
 
@@ -36,13 +35,12 @@ class Coleccion():
             return False
 
     def eliminar_album(self, album_id):
-        try:
+            session = Session()
             album = session.query(Album).filter(Album.id == album_id).first()
+            if album is None:
+                raise Exception("Álbum no encontrado.")
             session.delete(album)
             session.commit()
-            return True
-        except:
-            return False
 
     def dar_albumes(self):
         albumes = [elem.__dict__ for elem in session.query(Album).all()]
@@ -123,16 +121,12 @@ class Coleccion():
             return False
 
     def eliminar_cancion(self, cancion_id):
-        try:
-            cancion = session.query(Cancion).filter(Cancion.id == cancion_id).first()
-            if cancion is not None:
-                session.delete(cancion)
-                session.commit()
-                return True
-            else:
-                return False
-        except:
-            return False
+        session = Session()
+        cancion = session.query(Cancion).filter(Cancion.id == cancion_id).first()
+        if cancion is None:
+            raise Exception("Canción no encontrada.")
+        session.delete(cancion)
+        session.commit()
 
     def dar_canciones(self):
         canciones = [elem.__dict__ for elem in session.query(Cancion).all()]
@@ -198,13 +192,12 @@ class Coleccion():
             return False
 
     def eliminar_interprete(self, interprete_id):
-        try:
-            interprete = session.query(Interprete).filter(Interprete.id == interprete_id).first()
-            session.delete(interprete)
-            session.commit()
-            return True
-        except:
-            return False
+        session = Session()
+        interprete = session.query(Interprete).filter(Interprete.id == interprete_id).first()
+        if interprete is None:
+            raise Exception("Intérprete no encontrado.")
+        session.delete(interprete)
+        session.commit()
 
     def dar_interpretes(self):
         interpretes = [elem.__dict__ for elem in session.query(Interprete).all()]
