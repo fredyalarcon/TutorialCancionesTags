@@ -38,7 +38,7 @@ class Coleccion():
             session = Session()
             album = session.query(Album).filter(Album.id == album_id).first()
             if album is None:
-                raise Exception("Álbum no encontrado.")
+                raise ValueError("Álbum no encontrado.")
             session.delete(album)
             session.commit()
 
@@ -124,7 +124,7 @@ class Coleccion():
         session = Session()
         cancion = session.query(Cancion).filter(Cancion.id == cancion_id).first()
         if cancion is None:
-            raise Exception("Canción no encontrada.")
+            raise ValueError("Canción no encontrada.")
         session.delete(cancion)
         session.commit()
 
@@ -142,7 +142,12 @@ class Coleccion():
         return session.query(Interprete).filter_by(id=interprete_id).first().__dict__
 
     def dar_canciones_de_album(self, album_id):
-        return []
+        album = session.query(Album).filter(Album.id == album_id).first()
+        if album is None:
+            raise ValueError("Álbum no encontrado.")
+
+        canciones = album.canciones
+        return [cancion.__dict__ for cancion in canciones]
 
     def buscar_canciones_por_titulo(self, cancion_titulo):
         canciones = [elem.__dict__ for elem in
@@ -195,7 +200,7 @@ class Coleccion():
         session = Session()
         interprete = session.query(Interprete).filter(Interprete.id == interprete_id).first()
         if interprete is None:
-            raise Exception("Intérprete no encontrado.")
+            raise ValueError("Intérprete no encontrado.")
         session.delete(interprete)
         session.commit()
 
