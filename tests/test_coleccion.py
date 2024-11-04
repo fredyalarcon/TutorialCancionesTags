@@ -61,11 +61,3 @@ class ColeccionTestCase(unittest.TestCase):
             self.coleccion.dar_canciones_de_album(999)  # ID que no existe
         self.assertEqual(str(context.exception), "Álbum no encontrado.")
 
-    @classmethod
-    def tearDownClass(cls):
-        """Limpiar la base de datos después de las pruebas."""
-        cls.session.query(Cancion).delete()
-        cls.session.query(Album).delete()
-        cls.session.query(Interprete).delete()
-        cls.session.commit()
-        cls.session.close()
