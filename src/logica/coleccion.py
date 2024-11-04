@@ -142,7 +142,12 @@ class Coleccion():
         return session.query(Interprete).filter_by(id=interprete_id).first().__dict__
 
     def dar_canciones_de_album(self, album_id):
-        return []
+        album = session.query(Album).filter(Album.id == album_id).first()
+        if album is None:
+            raise ValueError("Álbum no encontrado.")
+
+        canciones = album.canciones
+        return [cancion.__dict__ for cancion in canciones]
 
     def buscar_canciones_por_titulo(self, cancion_titulo):
         canciones = [elem.__dict__ for elem in

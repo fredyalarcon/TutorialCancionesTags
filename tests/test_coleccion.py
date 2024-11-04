@@ -26,8 +26,11 @@ class ColeccionTestCase(unittest.TestCase):
         self.session.add(self.album_prueba)
         self.session.commit()
         # Agregar una canción de prueba
-        self.cancion_prueba = Cancion(titulo="Canción de Prueba")
+        self.cancion_prueba = Cancion(titulo="Canción de Prueba", albumes=[self.album_prueba])
         self.session.add(self.cancion_prueba)
+        self.session.commit()
+        self.cancion_prueba_2 = Cancion(titulo="Canción de Prueba 2", albumes=[self.album_prueba])
+        self.session.add(self.cancion_prueba_2)
         self.session.commit()
 
     def test_eliminar_interprete_excepcion(self):
@@ -47,3 +50,16 @@ class ColeccionTestCase(unittest.TestCase):
             self.coleccion.eliminar_cancion(9999)
             
         self.assertEqual(str(context.exception), "Canción no encontrada.")
+        
+    def test_dar_canciones_de_album_exitoso(self):
+        """Prueba exitosa de dar canciones de un álbum existente."""
+        canciones = self.coleccion.dar_canciones_de_album(self.album.id)
+        self.assertEqual(len(canciones), 2)
+        self.assertIn("Canción 1", [c["titulo"] for c in canciones])
+        self.assertIn("Canción 2", [c["titulo"] for c in canciones])
+
+    def test_dar_canciones_de_album_no_encontrado(self):
+        """Prueba de manejo de error al buscar un álbum inexistente."""
+        with self.assertRaises(ValueError) as context:
+            self.coleccion.dar_canciones_de_album(999)  # ID que no existe
+        self.assertEqual(str(context.exception), "Álbum no encontrado.")    
